@@ -49,7 +49,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             icon: {
                 containerSelector: '.title_wrapper h1',
                 locator: 'prepend',
-                imgStyles: 'width: 25px; margin: -8px 10px 0 0;"'
+                imgStyles: 'width: 25px; margin: -8px 10px 0 0;'
             }
         },
         {
@@ -72,6 +72,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             ],
             search: {
                 containerSelector: '.header .title h2 a',
+                attribute: 'text',
                 remove: null
             },
             match: {
@@ -82,7 +83,79 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             icon: {
                 containerSelector: '.header .title h2',
                 locator: 'prepend',
-                imgStyles: 'width: 25px; margin: -8px 10px 0 0;"'
+                imgStyles: 'width: 25px; margin: -8px 10px 0 0;'
+            }
+        },
+        {
+            id: 'tmdb',
+            rules: [
+                {
+                    siteId: 'sonarr',
+                    match: {
+                        term: 'themoviedb.org/tv',
+                        operator: 'eq'
+                    }
+                },
+                {
+                    siteId: 'radarr',
+                    match: {
+                        term: 'themoviedb.org/movie',
+                        operator: 'eq'
+                    }
+                }
+            ],
+            search: {
+                containerSelector: '.card.style_1 .image .wrapper .image',
+                attribute: 'title',
+                remove: null
+            },
+            match: {
+                term: 'themoviedb.org',
+                containerSelector: 'link[rel="canonical"]',
+                attribute: 'href'
+            },
+            icon: {
+                containerSelector: '.card.style_1 .content',
+                locator: 'prepend',
+                customMarkUp: '<div class="consensus tight" style="right: 10px !important; left: auto;"><div style="position: relative;"><a href="[#SEARCH_URL#]" target="_blank" tooltip="[#MENU_TEXT#]" title="[#MENU_TEXT#]"><img src="[#BASE64#]" style="width: 36px;"></a></div></div>'
+            }
+        },
+        {
+            id: 'tvdb',
+            defaultSite: 'sonarr',
+            search: {
+                containerSelector: '#series_title',
+                attribute: 'text',
+                remove: null
+            },
+            match: {
+                term: 'thetvdb.com/series',
+                containerSelector: '#series_basic_info',
+                attribute: 'text'
+            },
+            icon: {
+                containerSelector: '#series_title',
+                locator: 'prepend',
+                imgStyles: 'width: 25px; margin: -8px 10px 0 0;'
+            }
+        },
+        {
+            id: 'tvdb',
+            defaultSite: 'radarr',
+            search: {
+                containerSelector: '#series_title',
+                attribute: 'text',
+                remove: null
+            },
+            match: {
+                term: 'thetvdb.com/movies',
+                containerSelector: '#series_basic_info',
+                attribute: 'text'
+            },
+            icon: {
+                containerSelector: '#series_title',
+                locator: 'prepend',
+                imgStyles: 'width: 25px; margin: -8px 10px 0 0;'
             }
         },
         {
@@ -91,31 +164,32 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
                 {
                     siteId: 'sonarr',
                     match: {
-                        term: 'thetvdb.com series',
+                        term: '/series/',
                         operator: 'eq'
                     }
                 },
                 {
                     siteId: 'radarr',
                     match: {
-                        term: 'thetvdb.com movie',
+                        term: '/movies/',
                         operator: 'eq'
                     }
                 }
             ],
             search: {
-                containerSelector: '#series_title',
+                containerSelector: 'h3.mt-0 a',
+                attribute: 'text',
                 remove: null
             },
             match: {
-                term: 'thetvdb.com',
-                containerSelector: '#series_basic_info',
-                attribute: 'text'
+                term: 'thetvdb.com/lists',
+                containerSelector: 'div.col-xs-12.col-sm-3.mt-2 > a',
+                attribute: 'href'
             },
             icon: {
-                containerSelector: '#series_title',
+                containerSelector: 'h3.mt-0',
                 locator: 'prepend',
-                imgStyles: 'width: 25px; margin: -8px 10px 0 0;"'
+                imgStyles: 'width: 25px; margin: -8px 10px 0 0;'
             }
         },
         {
@@ -138,6 +212,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             ],
             search: {
                 containerSelector: 'title',
+                attribute: 'text',
                 remove: ' - trakt.tv'
             },
             match: {
@@ -148,7 +223,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             icon: {
                 containerSelector: 'h1',
                 locator: 'prepend',
-                imgStyles: 'width: 25px; margin: -8px 10px 0 0;"'
+                imgStyles: 'width: 25px; margin: -8px 10px 0 0;'
             }
         },
         {
@@ -156,6 +231,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             defaultSite: 'sonarr',
             search: {
                 containerSelector: 'h1.show-for-medium',
+                attribute: 'text',
                 remove: null
             },
             match: {
@@ -164,7 +240,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             icon: {
                 containerSelector: 'h1.show-for-medium',
                 locator: 'prepend',
-                imgStyles: 'width: 32px; margin: -8px 10px 0 0;"'
+                imgStyles: 'width: 32px; margin: -8px 10px 0 0;'
             }
         },
         {
@@ -172,6 +248,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             defaultSite: 'sonarr',
             search: {
                 containerSelector: 'div.show-name',
+                attribute: 'text',
                 remove: null
             },
             match: {
@@ -180,7 +257,7 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
             icon: {
                 containerSelector: 'div.show-name',
                 locator: 'prepend',
-                imgStyles: 'width: 24px; margin: -8px 10px 0 0;"'
+                imgStyles: 'width: 24px; margin: -8px 10px 0 0;'
             }
         }
     ];
@@ -188,6 +265,46 @@ var settingsPort = chrome.runtime.connect({ name: 'settings' }),
 settingsPort.onMessage.addListener(function(response) {
     init(response.settings);
 });
+
+var getSite = function(integration, settings) {
+    var matchContainer = $(integration.match.containerSelector),
+        site = null;
+
+    if (integration.hasOwnProperty('defaultSite')) {
+        site = settings.sites
+            .filter(s => { return s.enabled })
+            .find(s => s.id == integration.defaultSite);
+    } else {
+        $.each(integration.rules, 
+            function (ir, r) {
+                var hasMatch;
+                
+                switch (integration.match.attribute) {
+                    case 'text':
+                        hasMatch = matchContainer.text().toLowerCase().includes(r.match.term);
+                        break;
+                        
+                    default:
+                        console.log('matchContainer.attr(integration.match.attribute)', matchContainer.attr(integration.match.attribute), 'r.match.term', r.match.term)
+                        hasMatch = matchContainer.attr(integration.match.attribute).toLowerCase().includes(r.match.term)
+                        break;                                
+                }
+
+                console.log('hasMatch', hasMatch, 'r.siteId', r.siteId);
+
+                if (((r.match.operator == 'eq') && hasMatch) ||
+                    ((r.match.operator == 'ne') && !hasMatch)) {
+                        site = settings.sites
+                            .filter(s => { return s.enabled })
+                            .find(s => s.id == r.siteId);
+
+                        return false;
+                    }
+            });
+    }
+
+    return site;
+}
 
 var init = function (settings) {
     if (!settings.enabled) {
@@ -227,60 +344,50 @@ var init = function (settings) {
                 function (ii, integration) {
                     /* test the integration should be used by matching against the url */
                     if (window.location.href.includes(integration.match.term)) {
-                        var matchContainer = $(integration.match.containerSelector),
-                            site = null;
+                        /* iterate all the containers */
+                        $.each($(integration.search.containerSelector), function(i_el, container) {
+                            var searchTerm = '';
 
-                        if (integration.hasOwnProperty('defaultSite')) {
-                            site = settings.sites
-                                .filter(s => { return s.enabled })
-                                .find(s => s.id == integration.defaultSite);
-                        } else {
-                            $.each(integration.rules, 
-                                function (ir, r) {
-                                    var hasMatch;
+                            switch (integration.search.attribute) {
+                                case 'text':
+                                    searchTerm = integration.search.remove == null
+                                        ? $(container).text().trim()
+                                        : $(container).text().toLowerCase().replace(integration.search.remove, '').trim();
+                                    break;
                                     
-                                    switch (integration.match.attribute) {
-                                        case 'text':
-                                            hasMatch = matchContainer.text().toLowerCase().includes(r.match.term);
-                                            break;
-                                            
-                                        default:
-                                            hasMatch = matchContainer.attr(integration.match.attribute).toLowerCase().includes(r.match.term)
-                                            break;                                
-                                    }
+                                default:
+                                    searchTerm = integration.search.remove == null
+                                        ? $(container).attr(integration.search.attribute).trim()
+                                        : $(container).attr(integration.search.attribute).toLowerCase().replace(integration.search.remove, '').trim();
+                                    break;                                
+                            }
 
-                                    if (((r.match.operator == 'eq') && hasMatch) ||
-                                        ((r.match.operator == 'ne') && !hasMatch)) {
-                                            site = settings.sites
-                                                .filter(s => { return s.enabled })
-                                                .find(s => s.id == r.siteId);
+                            if (searchTerm === '') {
+                                return;
+                            }
+                            
+                            var site = getSite(integration, settings);
 
-                                            return false;
-                                        }
-                                });
-                        }
+                            console.log('site', site, 'integration', integration);
 
                         if (site == null) {
                             return;
                         }
 
-                        /* iterate all the containers */
-                        $.each($(integration.search.containerSelector), function(i_el, container) {
-                            console.log($(integration.icon.containerSelector).length);
-                            var searchTerm = integration.search.remove == null
-                                ? $(container).text().trim()
-                                : $(container).text().toLowerCase().replace(integration.search.remove, '').trim();
-
-                            var searchUrl = site.domain.replace(/\/$/, '') + site.searchPath + encodeURIComponent(searchTerm).replace(/\./g, ' ');
+                        var searchUrl = site.domain.replace(/\/$/, '') + site.searchPath + encodeURIComponent(searchTerm).replace(/\./g, ' ');
                             var icon = base64Icons.find(i => i.id == site.id)
 
-                            var el = $('<a href="' + searchUrl + '" target="_blank" tooltip="' + site.menuText + '" title="' + site.menuText + '"></a>')
-                                .append($('<img src="' + icon.base64 + '" style="' + integration.icon.imgStyles + '">'));
+                            var el = integration.icon.hasOwnProperty('customMarkUp')
+                                ? $(integration.icon.customMarkUp.replace(/\[#SEARCH_URL#\]/g, searchUrl).replace(/\[#MENU_TEXT#\]/g, site.menuText,).replace(/\[#BASE64#\]/g, icon.base64))
+                                : $('<a href="' + searchUrl + '" target="_blank" tooltip="' + site.menuText + '" title="' + site.menuText + '"></a>')
+                                    .append($('<img src="' + icon.base64 + '" style="' + integration.icon.imgStyles + '">'));
 
-                            if (integration.icon.locator == "append") {
-                                $(integration.icon.containerSelector).eq(i_el).append(el);
-                            } else {
-                                $(integration.icon.containerSelector).eq(i_el).prepend(el);
+                            if ($(integration.icon.containerSelector).eq(i_el).html().indexOf(searchUrl) === -1) {
+                                if (integration.icon.locator == "append") {
+                                    $(integration.icon.containerSelector).eq(i_el).append(el);
+                                } else {
+                                    $(integration.icon.containerSelector).eq(i_el).prepend(el);
+                                }
                             }
                         });
                     }
