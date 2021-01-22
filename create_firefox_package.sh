@@ -7,4 +7,4 @@ then
 fi
 
 mkdir -p Publish
-web-ext build -s FirefoxAddOn/ -a Publish/ -o --filename "sonarr_radarr_lidarr_autosearch-firefox.zip"
+web-ext build -s FirefoxAddOn/ -a Publish/ -o --filename "sonarr_radarr_lidarr_autosearch-firefox.xpi"

@@ -94,21 +94,24 @@ var sessionId,
                 enabled: true,
                 searchPath: '/addseries/',
                 searchInputSelector: '.add-series-search .x-series-search',
-                menuText: 'Search Sonarr for tv'
+                menuText: 'Search Sonarr for tv',
+                apiKey: ''
             }, {
                 id: 'radarr',
                 domain: 'http://my.radarrurl.domain',
                 enabled: true,
                 searchPath: '/addmovies/',
                 searchInputSelector: '.add-movies-search .x-movies-search',
-                menuText: 'Search Radarr for movie'
+                menuText: 'Search Radarr for movie',
+                apiKey: ''
             }, {
                 id: 'lidarr',
                 domain: 'http://my.lidarrurl.domain',
                 enabled: false,
                 searchPath: '/add/search/',
                 searchInputSelector: 'input[name="searchBox"]',
-                menuText: 'Search Lidarr for artist'
+                menuText: 'Search Lidarr for artist',
+                apiKey: ''
             }
         ],
         integrations: [
